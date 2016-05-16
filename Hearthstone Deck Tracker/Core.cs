@@ -10,6 +10,7 @@ using Hearthstone_Deck_Tracker.Controls.Information;
 using Hearthstone_Deck_Tracker.Hearthstone;
 using Hearthstone_Deck_Tracker.HearthStats.API;
 using Hearthstone_Deck_Tracker.HsReplay;
+using Hearthstone_Deck_Tracker.HsReplay.API;
 using Hearthstone_Deck_Tracker.LogReader;
 using Hearthstone_Deck_Tracker.Plugins;
 using Hearthstone_Deck_Tracker.Utility;
@@ -145,6 +146,9 @@ namespace Hearthstone_Deck_Tracker
 			HsReplayManager.Setup().Forget();
 
 			Initialized = true;
+
+			//TODO: remove for launch (cache instead)
+			ApiManager.UpdateAccountStatus().Forget();
 
 			Analytics.Analytics.TrackPageView($"/app/v{Helper.GetCurrentVersion().ToVersionString()}/{loginType.ToString().ToLower()}{(newUser ? "/new" : "")}", "");
 		}
