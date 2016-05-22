@@ -2,6 +2,7 @@
 
 using System;
 using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 using Hearthstone_Deck_Tracker.Controls.Stats;
@@ -53,6 +54,7 @@ namespace Hearthstone_Deck_Tracker
 		public static void Initialize()
 		{
 			Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+			ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 			var newUser = !Directory.Exists(Config.AppDataPath);
 			Config.Load();
 			Log.Initialize();
