@@ -220,9 +220,6 @@ namespace Hearthstone_Deck_Tracker
 		[DefaultValue(false)]
 		public bool StartHearthstoneWithHDT = false;
 
-		[DefaultValue(new string[0])]
-		public string[] ConstructedImportingIgnoreCachedIds = new string[0];
-
 		[DefaultValue("")]
 		public string CreatedByVersion = "";
 
@@ -988,9 +985,6 @@ namespace Hearthstone_Deck_Tracker
 
 		[DefaultValue(false)]
 		public bool UseFullTextSearch = false;
-
-		[DefaultValue(false)]
-		public bool UseOldArenaImporting = false;
 
 		[DefaultValue(true)]
 		public bool UseSameScaling = true;
