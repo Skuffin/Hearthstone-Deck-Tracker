@@ -54,7 +54,6 @@ namespace Hearthstone_Deck_Tracker
 		public static void Initialize()
 		{
 			Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
-			ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 			var newUser = !Directory.Exists(Config.AppDataPath);
 			Config.Load();
 			Log.Initialize();
