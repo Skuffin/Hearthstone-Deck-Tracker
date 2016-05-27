@@ -65,6 +65,7 @@
     <Compile Include="BoardDamage\PlayerBoardTest.cs" />
     <Compile Include="BoardDamage\BoardStateTest.cs" />
     <Compile Include="BoardDamage\EntityHelperTest.cs" />
+    <Compile Include="DeckImport\DeckImportTest.cs" />
     <Compile Include="HearthStats\ApiTest.cs" />
     <Compile Include="Hearthstone\GameTimeTest.cs" />
     <Compile Include="Hearthstone\SecretTests.cs" />
@@ -84,6 +85,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DeckImport\TestFiles\ScreenCaptureTest.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="LogReader\TestFiles\ExampleBobLogLines.txt" />
     <Content Include="RankedDetection\TestFiles\1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -233,6 +237,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

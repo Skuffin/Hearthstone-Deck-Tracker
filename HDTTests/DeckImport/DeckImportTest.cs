@@ -16,7 +16,7 @@ namespace HDTTests.DeckImport
     {
         [TestMethod]
         public void FullScreenCapture()
-        {
+        {        
             var bmp = new Bitmap("DeckImport/TestFiles/ScreenCaptureTest.bmp");
 
             var deck = ConstructedDeckImporter.Import(bmp);
