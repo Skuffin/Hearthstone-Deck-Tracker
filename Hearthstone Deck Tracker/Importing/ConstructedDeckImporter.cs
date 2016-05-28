@@ -7,11 +7,14 @@ using System.Drawing;
 using Hearthstone_Deck_Tracker.Hearthstone;
 using System.Drawing.Imaging;
 using System.IO;
+using AForge.Imaging;
 
 namespace Hearthstone_Deck_Tracker.Importing
 {
     public static class ConstructedDeckImporter
     {
+        // match threshold, only matches >= this will be returned
+        private static readonly float _threshold = 0.9f;
         //location of the decklist
         private static readonly Point DecklistLocation = new Point(964,79);
 
@@ -27,7 +30,52 @@ namespace Hearthstone_Deck_Tracker.Importing
 
             var cutoutTemplates = ExtractTemplates();
 
-            return null;
+            var detectedCards = DetectCards(cutoutTemplates, cardCutouts);
+
+            using (var w = new StreamWriter(@"D:\Code\HearthStoneDeckTracker\cards.txt",false))
+            {
+                int l = 0;
+                foreach (var c in detectedCards)
+                {
+                    w.WriteLine(l + c.Name);
+                    l++;
+                }
+            }
+
+                return null;
+        }
+
+        private static List<Card> DetectCards(Dictionary<string, Bitmap> cutoutTemplates, List<Bitmap> cardCutouts)
+        {
+            var cardList = new List<Card>();
+            
+            var matcher = new ExhaustiveTemplateMatching(_threshold);
+
+            foreach(var cutout in cardCutouts)
+            {
+                var matches = new SortedDictionary<float, string>();
+
+                foreach (var template in cutoutTemplates)
+                {
+                    var tmatch = matcher.ProcessImage(cutout, template.Value);
+
+                    if (tmatch.Length > 0)
+                    {
+                        if (!matches.ContainsKey(-tmatch[0].Similarity))
+                        {
+                            //add negative for easy descending sorting
+                            matches.Add(-tmatch[0].Similarity, template.Key);
+                        }
+                    }
+                }
+
+                if (matches.Count > 0)
+                {
+                    cardList.Add(Database.GetCardFromId(matches.First().Value));
+                }
+            }
+
+            return cardList;
         }
 
         private static Dictionary<string, Bitmap> ExtractTemplates()
